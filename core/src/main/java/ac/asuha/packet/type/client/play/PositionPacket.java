@@ -1,6 +1,6 @@
 package ac.asuha.packet.type.client.play;
 
-import ac.asuha.buffer.PacketBuffer;
+import ac.asuha.buffer.NetworkBuffer;
 import ac.asuha.coordinate.Point;
 import ac.asuha.packet.Packet;
 import org.jetbrains.annotations.Nullable;
@@ -20,16 +20,16 @@ public class PositionPacket implements Packet.Client {
         }
 
         @Override
-        public void read(PacketBuffer buffer) {
-            yaw = buffer.read(PacketBuffer.Type.FLOAT);
-            pitch = buffer.read(PacketBuffer.Type.FLOAT);
+        public void read(NetworkBuffer buffer) {
+            yaw = buffer.read(NetworkBuffer.FLOAT);
+            pitch = buffer.read(NetworkBuffer.FLOAT);
         }
     }
 
     public static final class SetOnGround extends PositionPacket {
         @Override
-        public void read(PacketBuffer buffer) {
-            this.onGround = buffer.read(PacketBuffer.Type.BOOL);
+        public void read(NetworkBuffer buffer) {
+            this.onGround = buffer.read(NetworkBuffer.BOOLEAN);
         }
     }
 
@@ -44,13 +44,13 @@ public class PositionPacket implements Packet.Client {
         }
 
         @Override
-        public void read(PacketBuffer buffer) {
-            double x = buffer.read(PacketBuffer.Type.DOUBLE);
-            double y = buffer.read(PacketBuffer.Type.DOUBLE);
-            double z = buffer.read(PacketBuffer.Type.DOUBLE);
-            yaw = buffer.read(PacketBuffer.Type.FLOAT);
-            pitch = buffer.read(PacketBuffer.Type.FLOAT);
-            onGround = buffer.read(PacketBuffer.Type.BOOL);
+        public void read(NetworkBuffer buffer) {
+            double x = buffer.read(NetworkBuffer.DOUBLE);
+            double y = buffer.read(NetworkBuffer.DOUBLE);
+            double z = buffer.read(NetworkBuffer.DOUBLE);
+            yaw = buffer.read(NetworkBuffer.FLOAT);
+            pitch = buffer.read(NetworkBuffer.FLOAT);
+            onGround = buffer.read(NetworkBuffer.BOOLEAN);
         }
     }
 
@@ -67,11 +67,11 @@ public class PositionPacket implements Packet.Client {
 
 
     @Override
-    public void read(PacketBuffer buffer) {
-        double x = buffer.read(PacketBuffer.Type.DOUBLE);
-        double y = buffer.read(PacketBuffer.Type.DOUBLE);
-        double z = buffer.read(PacketBuffer.Type.DOUBLE);
-        onGround = buffer.read(PacketBuffer.Type.BOOL);
+    public void read(NetworkBuffer buffer) {
+        double x = buffer.read(NetworkBuffer.DOUBLE);
+        double y = buffer.read(NetworkBuffer.DOUBLE);
+        double z = buffer.read(NetworkBuffer.DOUBLE);
+        onGround = buffer.read(NetworkBuffer.BOOLEAN);
         point = new Point(x, y, z);
     }
 }

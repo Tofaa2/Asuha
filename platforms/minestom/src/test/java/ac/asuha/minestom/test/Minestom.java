@@ -2,6 +2,8 @@ package ac.asuha.minestom.test;
 
 import ac.asuha.AsuhaConfig;
 import ac.asuha.minestom.MinestomAsuha;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.event.player.AsyncPlayerConfigurationEvent;
@@ -19,6 +21,7 @@ public final class Minestom {
 
         var config = new AsuhaConfig();
         var anticheat = new MinestomAsuha(config, MinecraftServer.getGlobalEventHandler());
+
 
         InstanceContainer world = MinecraftServer.getInstanceManager().createInstanceContainer();
         world.setChunkSupplier(LightingChunk::new);

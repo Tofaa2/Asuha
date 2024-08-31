@@ -1,9 +1,10 @@
 package ac.asuha.packet.registry;
 
-import ac.asuha.buffer.PacketBuffer;
+import ac.asuha.buffer.NetworkBuffer;
 import ac.asuha.packet.Packet;
 import ac.asuha.packet.type.client.play.PositionPacket;
 import ac.asuha.packet.type.client.play.SwingArmPacket;
+import ac.asuha.packet.type.client.play.UseItemPacket;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -19,6 +20,7 @@ public final class ClientPacketRegistry {
         register(0x1B, PositionPacket.WithRotation::new);
         register(0x1C, PositionPacket.SetRotation::new);
         register(0x1D, PositionPacket.SetOnGround::new);
+        register(0x39, UseItemPacket::new);
     }
 
     public void register(int id, Supplier<Packet.Client> supplier) {
@@ -32,7 +34,7 @@ public final class ClientPacketRegistry {
         return null;
     }
 
-    public Packet.Client makeAndRead(int id, PacketBuffer buffer) {
+    public Packet.Client makeAndRead(int id, NetworkBuffer buffer) {
         var packet = make(id);
         if (packet != null) {
             packet.read(buffer);

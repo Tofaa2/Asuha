@@ -1,6 +1,6 @@
 package ac.asuha.packet.type.client.play;
 
-import ac.asuha.buffer.PacketBuffer;
+import ac.asuha.buffer.NetworkBuffer;
 import ac.asuha.packet.Packet;
 
 public class PickItemPacket implements Packet.Client {
@@ -12,7 +12,7 @@ public class PickItemPacket implements Packet.Client {
     }
 
     @Override
-    public void read(PacketBuffer buffer) {
-        slot = buffer.read(PacketBuffer.Type.VAR_INT);
+    public void read(NetworkBuffer buffer) {
+        slot = buffer.read(NetworkBuffer.VAR_INT);
     }
 }

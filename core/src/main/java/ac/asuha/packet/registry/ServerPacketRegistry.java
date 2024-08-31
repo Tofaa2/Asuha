@@ -2,6 +2,7 @@ package ac.asuha.packet.registry;
 
 import ac.asuha.packet.Packet;
 import ac.asuha.packet.type.server.common.ChatPacket;
+import ac.asuha.packet.type.server.play.TabListPacket;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,6 +13,7 @@ public class ServerPacketRegistry {
 
     public ServerPacketRegistry() {
         register(0x6C, ChatPacket.class);
+        register(0x6D, TabListPacket.class);
     }
 
     public <T extends Packet.Server> void register(int id, Class<T>clazz ) {
