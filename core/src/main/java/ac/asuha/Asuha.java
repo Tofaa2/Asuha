@@ -31,19 +31,23 @@ public final class Asuha {
     }
 
 
-    public void consume(Packet.ToAsuha packet) {
+    /**
+     * @param packet the packet to consume for the anticheat
+     * @return true if the packet can pass, false otherwise, platforms must cancel the inbound packet if this is returned false
+     */
+    public boolean consume(Packet.ToAsuha packet) {
         var buffer = packet.body();
         //NetworkBuffer buffer = NetworkBuffer.wrap(packet.body(), 0, 0);
         int id = packet.packetId();
         Packet.Client p = clientPackets.makeAndRead(id, buffer);
         if (p == null) {
-            return;
+            return false;
         }
 
         if (p instanceof UseItemPacket e) {
-            System.out.println("UseItemPacket");
             sendPacket(new ChatPacket(Component.text("Header"), false), packet.playerId());
         }
+        return true;
     }
 
     public Packet.FromAsuha poll() {
