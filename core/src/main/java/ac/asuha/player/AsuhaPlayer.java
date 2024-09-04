@@ -14,6 +14,7 @@ public final class AsuhaPlayer {
     private final int entityId;
     private final Set<Check> checks;
     private String clientBrand = "unknown";
+    private final ConcurrentHashMap<String, Object> additionalData = new ConcurrentHashMap<>();
 
     public AsuhaPlayer(UUID uuid, int entityId) {
         this.uuid = uuid;
@@ -47,6 +48,10 @@ public final class AsuhaPlayer {
 
     public void addChecks(Collection<Check> checks) {
         this.checks.addAll(checks);
+    }
+
+    public ConcurrentHashMap<String, Object> additionalData() {
+        return additionalData;
     }
 
     public String clientBrand() {

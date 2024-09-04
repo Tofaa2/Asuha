@@ -30,5 +30,4 @@ public record Point(double x, double y, double z) {
         return new Point(x - this.x, y - this.y, z - this.z);
     }
 
-
 }

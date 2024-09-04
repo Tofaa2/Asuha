@@ -1,6 +1,8 @@
 package ac.asuha;
 
 import ac.asuha.buffer.NetworkBuffer;
+import ac.asuha.event.AsuhaEventNode;
+import ac.asuha.event.types.AsuhaEvent;
 import ac.asuha.packet.Packet;
 import ac.asuha.packet.registry.ClientPacketRegistry;
 import ac.asuha.packet.registry.ServerPacketRegistry;
@@ -22,14 +24,21 @@ public final class Asuha {
     private final ServerPacketRegistry serverPackets;
     private final ClientPacketRegistry clientPackets;
 
+    private final AsuhaEventNode<AsuhaEvent> eventNode;
+
     public Asuha(AsuhaConfig config) {
         this.config = config;
         this.queuedPackets = new ArrayDeque<>();
 
         this.serverPackets = new ServerPacketRegistry();
         this.clientPackets = new ClientPacketRegistry();
+
+        this.eventNode = AsuhaEventNode.create("root");
     }
 
+    public AsuhaEventNode<AsuhaEvent> eventNode() {
+        return eventNode;
+    }
 
     /**
      * @param packet the packet to consume for the anticheat
@@ -37,7 +46,6 @@ public final class Asuha {
      */
     public boolean consume(Packet.ToAsuha packet) {
         var buffer = packet.body();
-        //NetworkBuffer buffer = NetworkBuffer.wrap(packet.body(), 0, 0);
         int id = packet.packetId();
         Packet.Client p = clientPackets.makeAndRead(id, buffer);
         if (p == null) {
